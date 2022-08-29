@@ -2,28 +2,40 @@ const readline = require('readline-sync');
 
 console.log('Welcome to the calculator!');
 
+// Get operator
 console.log('Please enter the operator: ');
 const op = readline.prompt();
 
-console.log('Enter first number: ');
-const number_1 = Number(readline.prompt());
-console.log('Enter second number: ');
-const number_2 = +readline.prompt();    // Unary operator converts to number
+// Get number of operands
+console.log('How many numbers do you want to ' + op);
+const num_operands = +readline.prompt();
 
+// Get numbers
+const nums = new Array(num_operands)
+for (let i = 0; i < num_operands; i++) {
+    console.log(`Please enter number ${i + 1}`);
+    nums[i] = +readline.prompt();
+}
+
+// Perform operation
+var answer;
 switch(op) {
     case '+':
-        console.log(number_1 + number_2);
+        answer = nums.reduce((accumulator, currVal) => accumulator + currVal);
         break;
     case '-':
-        console.log(number_1 - number_2);
+        answer = nums.reduce((accumulator, currVal) => accumulator - currVal);
         break;
     case '*':
-        console.log(number_1 * number_2);
+        answer = nums.reduce((accumulator, currVal) => accumulator * currVal);
         break;
     case '/':
-        console.log(number_1 / number_2);
+        answer = nums.reduce((accumulator, currVal) => accumulator / currVal);
         break;
     default:
         console.log('Unrecognised operator!');
         break;
 }
+
+// Report the answer
+console.log(`The answer is: ${answer}`);
