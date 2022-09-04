@@ -1,25 +1,21 @@
-const userInput = require('./userInput'); 
+const userInput = require('./userInput');
 
 exports.performOneVowelCountingCalculation = function() {
     // Get input string
     str = userInput.getStringInput().toUpperCase();
 
+    // Filter out non-vowel characters. This results in 2 loops through the
+    // array, but I want to try out some other methods
+    str = str.split('').filter(char => /[AEIOU]/.test(char));
+
     // Count character occurrences
-    var counts = {};
-    for (let i = 0; i < str.length; i++) {
-        var char = str.charAt(i);
-        if (Object.keys(counts).includes(char)) {
-            counts[char]++;
-        } else {
-            counts[char] = 1;
-        }
-    }
+    var counts = {'A': 0, 'E': 0, 'I': 0, 'O': 0, 'U': 0};
+    str.forEach(char => counts[char]++);
 
     // Print vowel counts
-    console.log(`The vowel counts are:
- A: ${counts['A'] || '0'}
- E: ${counts['E'] || '0'}
- I: ${counts['I'] || '0'}
- O: ${counts['O'] || '0'}
- U: ${counts['U'] || '0'}`);
+    var output = 'The vowel counts are:';
+    for (vowel in counts) {
+        output += `\n ${vowel}: ${counts[vowel]}`
+    }
+    console.log(output);
 }

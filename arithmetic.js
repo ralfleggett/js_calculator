@@ -1,12 +1,10 @@
 const userInput = require('./userInput'); 
 
-const VALID_OPERATIONS = ['+', '-', '*', '/'];
-
 exports.performOneArithmeticCalculation = function() {
     // Get operator
     const op = userInput.getStringInput(
         prompt = 'Please enter the operator:',
-        validValues = VALID_OPERATIONS
+        validValues = ['+', '-', '*', '/']
     );
 
     // Get number of operands
@@ -20,25 +18,37 @@ exports.performOneArithmeticCalculation = function() {
     }
 
     // Perform operation
+    answer = calculateAnswer(nums, op);
+
+    // Report the answer
+    console.log(`The answer is: ${answer}`);
+}
+
+function calculateAnswer(nums, op) {
     var answer;
     switch(op) {
         case '+':
-            answer = nums.reduce((accumulator, currVal) => accumulator + currVal);
+            answer = nums.reduce((accVal, currVal) => accVal + currVal);
             break;
         case '-':
-            answer = nums.reduce((accumulator, currVal) => accumulator - currVal);
+            answer = nums.reduce((accVal, currVal) => accVal - currVal);
             break;
         case '*':
-            answer = nums.reduce((accumulator, currVal) => accumulator * currVal);
+            answer = nums.reduce((accVal, currVal) => accVal * currVal);
             break;
         case '/':
-            answer = nums.reduce((accumulator, currVal) => accumulator / currVal);
+            // If first number is zero then answer is zero, else strip all 
+            // zeroes from nums
+            if (nums[0] === 0) {
+                answer = 0;
+            } else {
+                nums = nums.filter(val => val !== 0);
+                answer = nums.reduce((accVal, currVal) => accVal / currVal);
+            }
             break;
         default:
             console.log('Unrecognised operator!');
             break;
     }
-
-    // Report the answer
-    console.log(`The answer is: ${answer}`);
+    return answer;
 }
