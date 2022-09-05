@@ -4,8 +4,6 @@ const readline = require('readline-sync');
  * Prompts user to enter a string. Repeats until valid value received. Returns 
  * input
  * 
- * @todo Convert validValues to regex
- * 
  * @param {string} [prompt='Please enter a string:'] - Prompt to display to 
  *     user. If validValues is set, you should describe what the regex accepts
  * @param {object} [validValues=null] - Regex describing valid values that are 
@@ -40,8 +38,6 @@ exports.getStringInput = function(
 /**
  * Prompts user to enter a number. Repeats until valid value received. Returns 
  * input
- * 
- * @todo Convert validValues to regex
  * 
  * @param {string} [prompt='Please enter a number:'] - Prompt to display to 
  *     user. If validValues is set, you should describe what the regex accepts
