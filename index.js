@@ -17,15 +17,19 @@ function getCalculationMode() {
     for (let mode of Object.keys(VALID_MODES)) {
         prompt += `\n ${VALID_MODES[mode]}) ${mode}`
     }
-    
+
     // Get and return user input.
+    // We're not expecting many modes so sorting is fine
+    var modes = Object.values(VALID_MODES).sort() 
+    var regex = '^[' + modes[0] + '-' + modes[modes.length - 1] + ']$';
     return userInput.getNumberInput(
         prompt = prompt, 
-        validValues = Object.values(VALID_MODES));
+        validValues = new RegExp(regex),
+        invalidPrompt = 'User entered an invalid mode');
 }
 
 // Program starts here
-printWelcomeMessage()
+printWelcomeMessage();
 
 while (true) {
     const calculationMode = getCalculationMode();

@@ -3,13 +3,14 @@ const userInput = require('./userInput');
 exports.performOneArithmeticCalculation = function() {
     // Get operator
     const op = userInput.getStringInput(
-        prompt = 'Please enter the operator:',
-        validValues = ['+', '-', '*', '/']
-    );
+        prompt = 'Please enter the operator (+, -, /, *):',
+        validValues = new RegExp(/^[+-/*]$/),
+        invalidPrompt = 'User entered an invalid operator');
 
     // Get number of operands
     const num_operands = userInput.getNumberInput(
-        prompt = 'How many numbers do you want to ' + op);
+        prompt = 'How many numbers do you want to ' + op,
+        validValues = new RegExp(/^\d*[1-9]$/),);
 
     // Get numbers
     const nums = new Array(num_operands)
