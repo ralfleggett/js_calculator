@@ -2,15 +2,30 @@ const userInput = require('./userInput');
 
 exports.performOneArithmeticCalculation = function() {
     // Get operator
-    const op = userInput.getStringInput(
-        prompt = 'Please enter the operator (+, -, /, *):',
-        validValues = new RegExp(/^[+-/*]$/),
-        invalidPrompt = 'User entered an invalid operator');
+    var op;
+    operatorLoop: while (true) {
+        try {
+            op = userInput.getStringInput(
+                prompt = 'Please enter the operator (+, -, /, *):',
+                validValues = new RegExp(/^[+-/*]$/));
+            break operatorLoop;
+        } catch(err) {
+            console.error(err.message);
+        }
+    }
 
     // Get number of operands
-    const num_operands = userInput.getNumberInput(
-        prompt = 'How many numbers do you want to ' + op,
-        validValues = new RegExp(/^\d*[1-9]$/),);
+    var num_operands;
+    operandLoop: while (true) {
+        try {
+            num_operands = userInput.getNumberInput(
+                prompt = 'How many numbers do you want to ' + op,
+                validValues = new RegExp(/^\d*[1-9]$/));
+            break operandLoop;
+        } catch(err) {
+            console.error(err.message);
+        }
+    }
 
     // Get numbers
     const nums = new Array(num_operands)

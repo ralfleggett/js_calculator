@@ -22,10 +22,19 @@ function getCalculationMode() {
     // We're not expecting many modes so sorting is fine
     var modes = Object.values(VALID_MODES).sort() 
     var regex = '^[' + modes[0] + '-' + modes[modes.length - 1] + ']$';
-    return userInput.getNumberInput(
-        prompt = prompt, 
-        validValues = new RegExp(regex),
-        invalidPrompt = 'User entered an invalid mode');
+    var selectedMode;
+    inputLoop: while (true) {
+        try {
+            selectedMode = userInput.getNumberInput(
+                prompt = prompt,
+                validValues = new RegExp(regex));
+            break inputLoop;
+        } catch(err) {
+            console.error(err.message);
+        }
+    }
+
+    return selectedMode;
 }
 
 // Program starts here
